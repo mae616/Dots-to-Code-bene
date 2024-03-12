@@ -1,8 +1,8 @@
 import { PrimeReactProvider } from 'primereact/api';
 import { Inter } from "next/font/google";
 import "@/app/globals.css";
-import "primereact/resources/themes/lara-light-cyan/theme.css";
 import AppProvider from "@/app/provider";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,7 +14,19 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ja">
-      <body className={inter.className + ' bg-slate-400 m-0 p-0'}>
+      <head>
+        <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                const style = document.createElement('style')
+                style.innerHTML = '@layer tailwind-base, primereact, tailwind-utilities;'
+                style.setAttribute('type', 'text/css')
+                document.querySelector('head').prepend(style)
+              `,
+            }}
+          />
+      </head>
+      <body className={inter.className + ' bg-slate-400'}>
         <AppProvider>
           <PrimeReactProvider>
             <main className="w-96 mx-auto bg-slate-200 h-screen">
