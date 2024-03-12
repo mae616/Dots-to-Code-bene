@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Login() {
+export default function MyCompliments() {
   return (
       <div className="text-center">
         <h1>マイほめリストです</h1>
@@ -9,7 +9,7 @@ export default function Login() {
         <br />
         <Link href="/mycompliments/1">詳細</Link>
         <br />
-        <Link href="/dashboard">ダッシュボード</Link>
+        <Link href="/compliments">みんなの褒めリスト</Link>
       </div>
   );
 }
