@@ -51,7 +51,7 @@ export default function Signup() {
       }
     });
 
-    router.push("./dashboard");
+    router.push("./mycompliments");
   }
   return (
       <div className="text-center pt-20 px-8">
