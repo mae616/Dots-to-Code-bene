@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword, updateProfile, onAuthStateChanged } from "firebase/auth";
-import { FirebaseApp } from "@/app/_config/firebase";
+import { firebaseApp } from "@/app/_config/firebase";
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
@@ -13,7 +13,7 @@ import { Zen_Maru_Gothic } from  "next/font/google";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useUserInfo } from "@/app/_states/user";
-const auth = getAuth(FirebaseApp);
+const auth = getAuth(firebaseApp);
 
 const ZenMaruGothic = Zen_Maru_Gothic({
   weight: "400",
