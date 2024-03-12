@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ja">
-      <body className={inter.className + ' bg-slate-400'}>
+      <body className={inter.className + ' bg-slate-400 m-0 p-0'}>
         <AppProvider>
           <PrimeReactProvider>
             <main className="w-96 mx-auto bg-slate-200 h-screen">
