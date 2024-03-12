@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Login() {
+export default function ComplimentCard() {
   return (
       <div className="text-center">
         <h1>みんなのほめ詳細ページです</h1>
