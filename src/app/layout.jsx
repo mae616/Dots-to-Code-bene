@@ -1,6 +1,6 @@
 import { PrimeReactProvider } from 'primereact/api';
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import AppProvider from "@/app/provider";
 
