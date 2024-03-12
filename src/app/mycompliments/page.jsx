@@ -5,9 +5,11 @@ export default function Login() {
   return (
       <div className="text-center">
         <h1>マイほめリストです</h1>
-        <Link href="/login">ログイン</Link>
+        <Link href="/mycompliments/new">新規投稿</Link>
         <br />
-        <Link href="/">ホーム</Link>
+        <Link href="/mycompliments/1">詳細</Link>
+        <br />
+        <Link href="/dashboard">ダッシュボード</Link>
       </div>
   );
 }
