@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "@/app/globals.css";
 import AppProvider from "@/app/provider";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+import 'primeicons/primeicons.css';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,7 +30,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className + ' bg-slate-400'}>
         <AppProvider>
           <PrimeReactProvider>
-            <main className="w-96 mx-auto bg-slate-200 h-screen">
+            <main className="w-96 sm:w-screen mx-auto bg-slate-200 bg-image-sm bg-cover min-h-screen">
               {children}
             </main>
           </PrimeReactProvider>
