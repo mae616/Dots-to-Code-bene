@@ -42,6 +42,9 @@ export default function MyComplimentCard() {
     }} className="flex text-sm bg-transparent border-none"/>
       <div className="text-center mx-5">
 
+        <div className="flex justify-end items-center text-sm text-red-400">
+        <i className="pi pi-trash text-red-400 pr-1" />削除
+        </div>
         <Card className=" bg-white bg-opacity-40 my-4 shadow-none">
           <div className="text-left flex flex-col gap-4">
             <div className="flex items-end gap-2">
@@ -95,7 +98,7 @@ export default function MyComplimentCard() {
 
         <CommentList />
       </div>
-      <div className="text-right p-1 mr-2">
+      <div className="text-right p-1 mr-2 pb-2">
         <Link href="/mycompliments" className="text-sm hover:cursor-pointer">戻る</Link>
       </div>
     </>
