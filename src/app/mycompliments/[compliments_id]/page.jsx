@@ -43,7 +43,7 @@ export default function MyComplimentCard() {
       <div className="text-center mx-5">
 
         <div className="flex justify-end items-center text-sm text-red-400">
-        <i className="pi pi-trash text-red-400 pr-1" />削除
+          <i className="pi pi-trash text-red-400 pr-1" />削除
         </div>
         <Card className=" bg-white bg-opacity-40 my-4 shadow-none">
           <div className="text-left flex flex-col gap-4">
