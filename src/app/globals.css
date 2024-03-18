@@ -8,3 +8,40 @@
   @tailwind components;
   @tailwind utilities;
 }
+
+@layer utilities {
+
+  .clip-triangle {
+
+      clip-path: polygon(0 0, 0% 100%, 100% 50%);
+
+  }
+
+  .selectedClass {
+    @apply bg-pink-200 inline-flex items-center text-gray-700 rounded-[16px] px-3 py-1 mt-1.5 mb-1.5 mr-2;
+  }
+
+  .removeClass {
+    @apply text-pink-800 ml-1 font-bold;
+  }
+
+  .tagInputFieldClass {
+    @apply h-[2rem] my-1.5 px-3 py-1.5 font-sans text-gray-600 bg-white border border-gray-300 transition-colors duration-200 appearance-none rounded-lg hover:border-blue-500 focus:outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)];
+  }
+
+  .suggestionsClass {
+    @apply overflow-auto bg-white text-gray-700 border-0 rounded-md shadow-lg m-0 px-3 py-1.5 leading-8;
+  }
+
+  .activeSuggestionClass {
+    @apply bg-pink-100 -mx-3 px-3 my-0 py-0;
+  }
+
+  .suggestionsClass li:first-child.activeSuggestionClass {
+    @apply -mt-1.5 pt-1.5;
+  }
+
+  .suggestionsClass li:last-child.activeSuggestionClass {
+    @apply -mb-1.5 pb-1.5;
+  }
+}

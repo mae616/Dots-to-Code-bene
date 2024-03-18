@@ -29,27 +29,19 @@ export default function Signup() {
   const router = useRouter();
 
   const signup = async () => {
+    let user;
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+      user = userCredential.user;
       await updateProfile(user, {
         displayName: username,
       });
     } catch (error) {
       console.log(error);
+      return;
     }
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-        setUserInfo(user);
-        // ...
-      } else {
-        // User is signed out
-        setUserInfo({});
-      }
-    });
+    setUserInfo(user);
 
     router.push("./mycompliments");
   }
