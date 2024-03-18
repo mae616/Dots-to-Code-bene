@@ -1,27 +1,12 @@
 'use client';
 import { Card } from 'primereact/card';
 import { Chip } from 'primereact/chip';
-import { M_PLUS_1 } from  "next/font/google";
-import 'dayjs/locale/ja';
-import dayjs, { locale, extend } from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import RatingButton from "@/app/_components/RatingButton";
 import LikeButton from "@/app/_components/LikeButton";
 import CommentButton from "@/app/_components/CommentButton";
-locale('ja');
-extend(relativeTime);
-
-const mPlus1 = M_PLUS_1({
-  weight: "400",
-  subsets: ["latin"],
-
-});
-
-const mPlus1Bold = M_PLUS_1({
-  weight: "800",
-  subsets: ["latin"],
-
-});
+import { mPlus1, mPlus1Bold } from "@/app/_config/themeFontConfig";
+import { dayjsConfig } from "@/app/_config/dayjsConfig";
+import Link from 'next/link';
 
 export default function MyComplimentCard({myComplimentInfo}) {
   return (
@@ -69,7 +54,12 @@ export default function MyComplimentCard({myComplimentInfo}) {
         </div>
         </div>
         <div className="text-right text-sm mt-5 text-slate-500">
-        {dayjs(myComplimentInfo.created_at.toDate()).fromNow()}
+        {dayjsConfig(myComplimentInfo.created_at.toDate()).fromNow()}
+        </div>
+        <div className="text-right text-sm mt-5 text-sky-500">
+          <Link href={`/mycompliments/${myComplimentInfo.id}`}>
+            詳細へ
+          </Link>
         </div>
     </Card>
   );

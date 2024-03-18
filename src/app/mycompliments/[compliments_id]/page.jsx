@@ -3,12 +3,9 @@ import Link from "next/link";
 import { BreadCrumb } from 'primereact/breadcrumb';
 import { Card } from 'primereact/card';
 import { Chip } from 'primereact/chip';
+import { Skeleton } from 'primereact/skeleton';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { M_PLUS_1 } from  "next/font/google";
-import 'dayjs/locale/ja';
-import dayjs, { locale, extend } from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import Header from "@/app/_components/Header";
 import RatingButton from "@/app/_components/RatingButton";
 import LikeButton from "@/app/_components/LikeButton";
@@ -16,42 +13,15 @@ import CommentButton from "@/app/_components/CommentButton";
 import MessageCard from "@/app/_components/MessageCard";
 import VoicePlay from "@/app/_components/VoicePlay";
 import CommentList from "@/app/_components/CommentList";
-import { useEffect, useState } from "react";
-import { firebaseApp } from "@/app/_config/firebase";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
-locale('ja');
-extend(relativeTime);
-
-const db = getFirestore(firebaseApp);
-
-const mPlus1 = M_PLUS_1({
-  weight: "400",
-  subsets: ["latin"],
-
-});
-
-const mPlus1Bold = M_PLUS_1({
-  weight: "800",
-  subsets: ["latin"],
-
-});
+import { mPlus1, mPlus1Bold } from "@/app/_config/themeFontConfig";
+import { dayjsConfig } from "@/app/_config/dayjsConfig";
+import { useFetchCompliment } from "@/app/_hook/useFetchCompliment";
+import { useRedirectNoAuth } from "@/app/_hook/useRedirectNoAuth";
 
 export default function MyComplimentCard({params}) {
+  useRedirectNoAuth();
   const {compliments_id} = params;
-  const [compliment, setCompliment] = useState({});
-
-  useEffect(() => {
-    const fetchCompliment = async () => {
-      const querySnapshot = await getDoc(doc(db, "compliments" , compliments_id));
-      if (querySnapshot.exists()) {
-        setCompliment({
-          id: compliments_id,
-          ...querySnapshot.data()
-        });
-      }
-    };
-    fetchCompliment();
-  }, []);
+  const compliment = useFetchCompliment(compliments_id);
 
   return (
     <>
@@ -67,7 +37,7 @@ export default function MyComplimentCard({params}) {
           <i className="pi pi-trash text-red-400 pr-1" />削除
         </div>
         {
-          compliment.id &&
+          compliment.id ?
           <Card className=" bg-white bg-opacity-40 my-4 shadow-none">
             <div className="text-left flex flex-col gap-4">
               <div className="flex items-end gap-2">
@@ -119,9 +89,10 @@ export default function MyComplimentCard({params}) {
               </div>
             </div>
             <div className="text-right text-sm mt-5 text-slate-500">
-              {dayjs(compliment.created_at.toDate()).fromNow()}
+              {dayjsConfig(compliment.created_at.toDate()).fromNow()}
             </div>
           </Card>
+          : <Skeleton className="w-full" height="540px" />
         }
 
         <CommentList />

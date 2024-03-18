@@ -1,5 +1,4 @@
 'use client';
-import { useState } from "react";
 import Link from "next/link";
 import { BreadCrumb } from 'primereact/breadcrumb';
 import { Card } from 'primereact/card';
@@ -8,65 +7,30 @@ import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { M_PLUS_1 } from  "next/font/google";
 import Header from "@/app/_components/Header";
 import RatingButton from "@/app/_components/RatingButton";
 import TextareaWithLength from "@/app/_components/TextareaWithLength";
 import Tags from "@/app/_components/Tags";
 import MessageCard from "@/app/_components/MessageCard";
 import VoicePlay from "@/app/_components/VoicePlay";
-import { firebaseApp } from "@/app/_config/firebase";
-import { getFirestore, addDoc, collection, Timestamp } from "firebase/firestore"; 
-import { useUserInfo } from "@/app/_states/user";
-
-const db = getFirestore(firebaseApp);
-
-
-const mPlus1 = M_PLUS_1({
-  weight: "400",
-  subsets: ["latin"],
-
-});
-
-const mPlus1Bold = M_PLUS_1({
-  weight: "800",
-  subsets: ["latin"],
-
-});
+import { mPlus1, mPlus1Bold } from "@/app/_config/themeFontConfig";
+import { usePostMyCompliment } from "@/app/_hook/usePostMyCompliment";
+import { useRedirectNoAuth } from "@/app/_hook/useRedirectNoAuth";
 
 export default function MyComplimentPost() {
+  useRedirectNoAuth();
 
-  const [registeredUser] = useUserInfo();
-  const [toName, setToName] = useState("");
-  const [toCategory, setToCategory] = useState("");
-  const [complimentRating, setComplimentRating] = useState(3);
-  const [body, setBody] = useState("");
-  const [thoughts, setThoughts] = useState("");
-  const [tags, setTags] = useState([]);
-  const [message, setMessage] = useState("");
-
-  const saveCompliment = async () => {
-    try {
-      const docRef = await addDoc(collection(db, "compliments"), 
-      {
-        user_id: registeredUser.uid || '',
-        to_name: toName,
-        to_category: toCategory,
-        compliment_rating: complimentRating,
-        body: body,
-        thoughts: thoughts,
-        tags: [...tags.map(tag => tag.text)],
-        message: message,
-        count_of_likes: 0,
-        count_of_comments: 0,
-
-        created_at: Timestamp.fromDate(new Date()),
-    });
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-  }
-
+  const { 
+    toName, setToName, 
+    toCategory, setToCategory, 
+    complimentRating, setComplimentRating, 
+    body, setBody, 
+    thoughts, setThoughts, 
+    tags, setTags, 
+    message, setMessage, 
+    saveCompliment 
+  } = usePostMyCompliment();
+  
   return (
     <>
       <Header />
