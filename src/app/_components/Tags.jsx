@@ -11,12 +11,12 @@ const mPlus1 = M_PLUS_1({
 
 const KeyCodes = {
     comma: 188,
-    enter: 13
+    enter: 13,
   };
   
   const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
-export default function Tags({name, readonly = false}) {
+export default function Tags({name, readonly = false, tags, suggestions, handleAddition, handleDelete, max=3}) {
 
     if(readonly) {
         return (
@@ -28,40 +28,6 @@ export default function Tags({name, readonly = false}) {
         );
     }
 
-    const [tags, setTags] = useState([]);
-
-    const handleDelete = i => {
-        setTags(tags.filter((tag, index) => index !== i));
-      };
-    
-      const handleAddition = tag => {
-        setTags([...tags, tag]);
-      };
-    
-      const handleDrag = (tag, currPos, newPos) => {
-        const newTags = tags.slice();
-    
-        newTags.splice(currPos, 1);
-        newTags.splice(newPos, 0, tag);
-    
-        // re-render
-        setTags(newTags);
-      };
-    
-      const handleTagClick = index => {
-        console.log('The tag at index ' + index + ' was clicked');
-      };
-
-
-    const suggestions = [{
-          id: "aaaa",
-          text: "がんばりを褒めたい"
-        },
-        {
-          id: "bbbbb",
-          text: "がんがん行こうぜ"
-        }];
-
     return (
         <div className="shrink flex items-center gap-2 flex-wrap overflow-visible">
           <ReactTags
@@ -70,8 +36,6 @@ export default function Tags({name, readonly = false}) {
             delimiters={delimiters}
             handleDelete={handleDelete}
             handleAddition={handleAddition}
-            handleDrag={handleDrag}
-            handleTagClick={handleTagClick}
             inputFieldPosition="bottom"
             autocomplete
             placeholder = "タグを追加"

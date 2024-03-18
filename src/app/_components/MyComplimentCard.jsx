@@ -1,3 +1,4 @@
+'use client';
 import { Card } from 'primereact/card';
 import { Chip } from 'primereact/chip';
 import { M_PLUS_1 } from  "next/font/google";
@@ -22,7 +23,7 @@ const mPlus1Bold = M_PLUS_1({
 
 });
 
-export default function MyComplimentCard() {
+export default function MyComplimentCard({myComplimentInfo}) {
   return (
     <Card className=" bg-white bg-opacity-40 my-4 shadow-none">
         <div className="text-left flex flex-col gap-4">
@@ -30,43 +31,45 @@ export default function MyComplimentCard() {
             <div className="grow">
             <h5 className={mPlus1Bold.className + " text-xs"}>ほめたい人の名前</h5>
             <div className={mPlus1.className}>
-                {"なおちゃん"}
+                {myComplimentInfo.to_name}
             </div>
             </div>
             <div className="grow-0">
             <div className={mPlus1.className}>
-                {"娘"}
+                {myComplimentInfo.to_category}
             </div>
             </div>
         </div>
         <div>
             <h5 className={mPlus1Bold.className + " text-xs"}>ほめたい度</h5>
-            <RatingButton ratingValue={3} />
+            <RatingButton readOnly={true} ratingValue={myComplimentInfo.compliment_rating} />
         </div>
         <div>
             <h5 className={mPlus1Bold.className + " text-xs"}>その内容</h5>
             <div className={mPlus1.className}>
-            {"なおちゃんはいつも笑顔で、みんなを元気にしてくれる。"}
+            {myComplimentInfo.body}
             </div>
         </div>
         <div>
             <h5 className={mPlus1Bold.className + " text-xs"}>思ったこと</h5>
             <div className={mPlus1.className}>
-            {"なおちゃんはいつも笑顔で、みんなを元気にしてくれる。"}
+            {myComplimentInfo.thoughts}
             </div>
         </div>
         <div className="shrink flex items-center gap-2 flex-wrap overflow-visible">
-            <Chip label="#がんばりをほめたい" className={mPlus1.className + " text-sm whitespace-nowrap bg-pink-200"} />
-            <Chip label="#Comedy" className={mPlus1.className + " text-sm whitespace-nowrap bg-pink-200"} />
-            <Chip label="#Mystery" className={mPlus1.className + " text-sm whitespace-nowrap bg-pink-200"} />
+            {Array.from(myComplimentInfo.tags).map((tag, index) => {
+            return (
+                <Chip key={index} label={`#${tag}`} className={mPlus1.className + " text-sm whitespace-nowrap bg-pink-200"} />
+            );
+            })}
         </div>
         <div className="mx-auto flex justify-between items-center w-44">
-            <LikeButton isLiked={true} countOfLikes={3} />
-            <CommentButton countOfLikes={8} />
+            <LikeButton isLiked={true} countOfLikes={myComplimentInfo.count_of_likes} />
+            <CommentButton countOfComment={myComplimentInfo.count_of_comments} />
         </div>
         </div>
         <div className="text-right text-sm mt-5 text-slate-500">
-        {dayjs().fromNow()}
+        {dayjs(myComplimentInfo.created_at.toDate()).fromNow()}
         </div>
     </Card>
   );
