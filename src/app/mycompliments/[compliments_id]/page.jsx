@@ -13,17 +13,16 @@ import CommentButton from "@/app/_components/CommentButton";
 import MessageCard from "@/app/_components/MessageCard";
 import VoicePlay from "@/app/_components/VoicePlay";
 import CommentList from "@/app/_components/CommentList";
+import RemoveMyComplimentButton from "@/app/_components/RemoveMyComplimentButton";
 import { mPlus1, mPlus1Bold } from "@/app/_config/themeFontConfig";
 import { dayjsConfig } from "@/app/_config/dayjsConfig";
 import { useFetchCompliment } from "@/app/_hook/useFetchCompliment";
-import { useRemoveMyCompliment } from "@/app/_hook/useRemoveMyCompliment";
 import { useRedirectNoAuth } from "@/app/_hook/useRedirectNoAuth";
 
 export default function MyComplimentCard({params}) {
   useRedirectNoAuth();
   const {compliments_id} = params;
   const compliment = useFetchCompliment(compliments_id);
-  const removeMyCompliment = useRemoveMyCompliment(compliments_id);
 
   return (
     <>
@@ -35,11 +34,7 @@ export default function MyComplimentCard({params}) {
     }} className="flex text-sm bg-transparent border-none"/>
       <div className="text-center mx-5">
 
-        <div className="flex justify-end items-center text-sm text-red-400">
-          <div className="cursor-pointer" onClick={()=>removeMyCompliment(compliments_id)} >
-            <i className="pi pi-trash text-red-400 pr-1" />削除
-          </div>
-        </div>
+        <RemoveMyComplimentButton complimentId={compliments_id} />
         {
           compliment.id ?
           <Card className=" bg-white bg-opacity-40 my-4 shadow-none">
