@@ -9,7 +9,7 @@ export default function TextareaWithLength({value, onChange, maxLength=200}) {
           maxLength: maxLength
         }
       }} />
-     <div className="text-xs text-right text-slate-500">0/{maxLength}</div>
+     <div className="text-xs text-right text-slate-500">{value.length}/{maxLength}</div>
   </div>
   );
 };
