@@ -9,6 +9,7 @@ import { dayjsConfig } from "@/app/_config/dayjsConfig";
 import Link from 'next/link';
 
 export default function ComplimentCard({complimentInfo}) {
+
   return (
     <Card className=" bg-white bg-opacity-40 my-4 shadow-none">
         <div className="text-left flex flex-col gap-4">
@@ -50,7 +51,7 @@ export default function ComplimentCard({complimentInfo}) {
             })}
         </div>
         <div className="mx-auto flex justify-between items-center w-44">
-            <LikeButton isLiked={true} countOfLikes={complimentInfo.count_of_likes} />
+            <LikeButton isLiked={complimentInfo.isLiked} countOfLikes={complimentInfo.count_of_likes} complimentId={complimentInfo.id} />
             <CommentButton countOfComment={complimentInfo.count_of_comments} />
         </div>
         </div>

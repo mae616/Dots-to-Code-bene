@@ -49,7 +49,7 @@ export default function MyComplimentCard({myComplimentInfo}) {
             })}
         </div>
         <div className="mx-auto flex justify-between items-center w-44">
-            <LikeButton isLiked={true} countOfLikes={myComplimentInfo.count_of_likes} />
+            <LikeButton isLiked={myComplimentInfo.isLiked} countOfLikes={myComplimentInfo.count_of_likes} complimentId={myComplimentInfo.id} />
             <CommentButton countOfComment={myComplimentInfo.count_of_comments} />
         </div>
         </div>

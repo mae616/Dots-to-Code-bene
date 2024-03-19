@@ -3,10 +3,13 @@ import { db } from "@/app/_config/firebase";
 import { collection, query, getDocs, orderBy } from "firebase/firestore";
 import { useUserInfo } from "@/app/_states/user";
 import { useEffect, useState } from "react";
+import { useFetchMyLikes } from "./useFetchMyLikes";
 
 export function useFetchComplimentList() {
   const [registeredUser] = useUserInfo();
   const [compliments, setCompliments] = useState([]);
+  const { isLiked } = useFetchMyLikes();
+
   useEffect(() => {
     const fetchCompliments = async () => {
       if (!registeredUser.uid) {
@@ -20,6 +23,7 @@ export function useFetchComplimentList() {
       querySnapshot.forEach(doc => {
         complimentTemp.push({
           id: doc.id,
+          isLiked: isLiked(doc.id),
           ...doc.data()
         });
         setCompliments(complimentTemp);
