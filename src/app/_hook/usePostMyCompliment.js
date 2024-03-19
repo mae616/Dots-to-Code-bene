@@ -21,6 +21,7 @@ export function usePostMyCompliment() {
           await addDoc(collection(db, "compliments"), 
           {
             user_id: registeredUser.uid,
+            user_name: registeredUser.displayName,
             to_name: toName,
             to_category: toCategory,
             compliment_rating: complimentRating,
