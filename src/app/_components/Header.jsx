@@ -1,6 +1,7 @@
 'use client';
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { getAuth } from "firebase/auth";
 import { firebaseApp } from "@/app/_config/firebase";
 import { Zen_Maru_Gothic } from  "next/font/google";
@@ -16,10 +17,12 @@ const ZenMaruGothic = Zen_Maru_Gothic({
 });
 
 export default function Header() {
+  const router = useRouter();
+  const [userInfo, setUserInfo] = useUserInfo();
 
   return (
       <div className="flex w-full items-center justify-between">
-        <h1 className={ZenMaruGothic.className + " text-2xl my-3 grow px-3"}><Link href="/">ほめるん</Link></h1>
+        <h1 className={ZenMaruGothic.className + " text-2xl my-3 grow px-3"}><Link href="/mycompliments">ほめるん</Link></h1>
         <div className="flex grow-0 items-center text-sm">
           <Link href="/mycompliments">
             <FontAwesomeIcon icon={faUser} className="h-[10px] text-slate-500 mr-1" />
@@ -33,7 +36,9 @@ export default function Header() {
           </Link>
         </div>
         <div className="flex grow-0 items-center text-sm pr-3">
-          <FontAwesomeIcon icon={faSignOut} className="h-[10px] text-slate-500" />
+          <div onClick={() => { auth.signOut(); setUserInfo({}); router.push('/') }}>
+            <FontAwesomeIcon icon={faSignOut} className="h-[10px] text-slate-500" />
+          </div>
         </div>
       </div>
   );
