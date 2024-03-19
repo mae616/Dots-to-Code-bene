@@ -52,7 +52,7 @@ export default function ComplimentCard({complimentInfo}) {
         </div>
         <div className="mx-auto flex justify-between items-center w-44">
             <LikeButton isLiked={complimentInfo.isLiked} countOfLikes={complimentInfo.count_of_likes} complimentId={complimentInfo.id} />
-            <CommentButton countOfComment={complimentInfo.count_of_comments} />
+            <CommentButton countOfComment={complimentInfo.count_of_comments} complimentRoute={`/compliments/${complimentInfo.id}`} />
         </div>
         </div>
         <div className="text-right text-sm mt-5 text-slate-500">

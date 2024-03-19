@@ -1,6 +1,6 @@
 'use client';
 import { db } from "@/app/_config/firebase";
-import { collection, query, getDocs, orderBy } from "firebase/firestore";
+import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 import { useUserInfo } from "@/app/_states/user";
 import { useEffect, useState } from "react";
 import { useFetchMyLikes } from "./useFetchMyLikes";
@@ -16,20 +16,22 @@ export function useFetchComplimentList() {
         return;
       }
 
-      const complimentTemp = [];
-      const querySnapshot = await getDocs(
-        query(collection(db, "compliments"), 
-          orderBy("created_at", "desc")));
-      querySnapshot.forEach(doc => {
-        complimentTemp.push({
-          id: doc.id,
-          isLiked: isLiked(doc.id),
-          ...doc.data()
+      const q = query(collection(db, "compliments"), 
+          orderBy("created_at", "desc"));
+      
+      onSnapshot(q, (querySnapshot) => {
+        const complimentTemp = [];
+        querySnapshot.forEach(doc => {
+          complimentTemp.push({
+            id: doc.id,
+            isLiked: isLiked(doc.id),
+            ...doc.data()
+          });
+          setCompliments(complimentTemp);
         });
-        setCompliments(complimentTemp);
       });
     };
-    fetchCompliments();
+    fetchCompliments();query
   }, [registeredUser.uid]);
   
   return compliments;

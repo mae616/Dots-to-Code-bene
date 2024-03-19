@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className + ' bg-slate-400'}>
         <AppProvider>
           <PrimeReactProvider>
-            <main className="w-96 sm:w-screen mx-auto bg-slate-200 bg-image-sm bg-cover min-h-screen">
+            <main className="w-96 sm:w-screen mx-auto bg-slate-200 bg-image-sm bg-cover h-full min-h-screen">
               {children}
             </main>
           </PrimeReactProvider>

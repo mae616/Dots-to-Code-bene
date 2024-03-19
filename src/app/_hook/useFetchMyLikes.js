@@ -1,6 +1,6 @@
 'use client';
 import { db } from "@/app/_config/firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { useUserInfo } from "@/app/_states/user";
 import { useEffect, useRef } from "react";
 
@@ -13,22 +13,22 @@ export function useFetchMyLikes(complimentId = "") {
         return;
       }
 
-      let querySnapshot;
+      let q;
       if (complimentId) {
-        querySnapshot = await getDocs(
-          query(collection(db, "likes"), 
+        q = query(collection(db, "likes"), 
             where("user_id", "==", registeredUser.uid), 
-            where("compliment_id", "==", complimentId)));
+            where("compliment_id", "==", complimentId));
       }else{
-        querySnapshot = await getDocs(
-          query(collection(db, "likes"), 
-            where("user_id", "==", registeredUser.uid)));
+        q = query(collection(db, "likes"), 
+            where("user_id", "==", registeredUser.uid));
       }
-      const myLikesTemp = [];
-      querySnapshot.forEach(doc => {
-        myLikesTemp.push(doc.data().compliment_id);
+      onSnapshot(q, (querySnapshot) => {
+        const myLikesTemp = [];
+        querySnapshot.forEach(doc => {
+          myLikesTemp.push(doc.data().compliment_id);
+        });
+        myLikesRef.current = myLikesTemp;
       });
-      myLikesRef.current = myLikesTemp;
     };
     fetchMyLikes();
 
