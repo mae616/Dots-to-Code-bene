@@ -1,4 +1,5 @@
 'use client';
+import { useState } from "react";
 import Link from "next/link";
 import { BreadCrumb } from 'primereact/breadcrumb';
 import { Button } from 'primereact/button';
@@ -12,7 +13,8 @@ import { useRedirectNoAuth } from "@/app/_hook/useRedirectNoAuth";
 
 export default function MyCompliments() {
   useRedirectNoAuth();
-  const myCompliments = useFetchMyComplimentList();
+  const { myCompliments } = useFetchMyComplimentList();
+
   return (
     <>
       <Header />

@@ -1,25 +1,17 @@
 'use client';
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { getAuth } from 'firebase/auth';
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { firebaseApp } from "@/app/_config/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/app/_config/firebase";
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
-import { Zen_Maru_Gothic } from  "next/font/google";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useUserInfo } from "@/app/_states/user";
-const auth = getAuth(firebaseApp);
-
-const ZenMaruGothic = Zen_Maru_Gothic({
-  weight: "400",
-  subsets: ["latin"],
-});
+import { ZenMaruGothic } from  "@/app/_config/themeFontConfig";
 
 export default function Login() {
 
@@ -33,7 +25,7 @@ export default function Login() {
       const userCredential = await signInWithEmailAndPassword (auth, email, password);
       const user = userCredential.user;
       setUserInfo(user);
-  router.push('./mycompliments');
+      router.push('./mycompliments');
     } catch (error) {
       console.log(error);
     }
@@ -53,9 +45,8 @@ export default function Login() {
 
             <div className="flex flex-col gap-2 mb-4">
               <label htmlFor="password">password</label>
-              <Password toggleMask
-                promptLabel="Choose a password" weakLabel="単純すぎます" mediumLabel="平均的です" strongLabel="良いパスワードです"
-                value={password} onChange={(e) => setPassword(e.target.value)} />
+              <Password toggleMask value={password} onChange={(e) => setPassword(e.target.value)} 
+                feedback={false} />
             </div>
           </div>
             <Button label="ログイン" className="w-36" />

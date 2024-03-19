@@ -1,24 +1,17 @@
 'use client';
-
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { getAuth } from "firebase/auth";
-import { firebaseApp } from "@/app/_config/firebase";
-import { Zen_Maru_Gothic } from  "next/font/google";
+import { signOut } from "firebase/auth";
+import { auth } from "@/app/_config/firebase";
+import { ZenMaruGothic } from "@/app/_config/themeFontConfig";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faUsers, faSignOut } from "@fortawesome/free-solid-svg-icons";
-import { useUserInfo } from "@/app/_states/user";
-const auth = getAuth(firebaseApp);
+import { useUserInfo, useIsAuth } from "@/app/_states/user";
 
-const ZenMaruGothic = Zen_Maru_Gothic({
-  weight: "400",
-  subsets: ["latin"],
-
-});
 
 export default function Header() {
-  const router = useRouter();
   const [userInfo, setUserInfo] = useUserInfo();
+  const router = useRouter();
 
   return (
       <div className="flex w-full items-center justify-between">
@@ -27,7 +20,7 @@ export default function Header() {
           <Link href="/mycompliments">
             <FontAwesomeIcon icon={faUser} className="h-[10px] text-slate-500 mr-1" />
             自分の投稿
-           </Link>
+          </Link>
         </div>
         <div className="flex grow-0 items-center text-sm px-3">
           <Link href="/compliments">
@@ -36,7 +29,7 @@ export default function Header() {
           </Link>
         </div>
         <div className="flex grow-0 items-center text-sm pr-3">
-          <div onClick={() => { auth.signOut(); setUserInfo({}); router.push('/') }}>
+          <div onClick={() => { signOut(auth); setUserInfo({}); router.push('/') }}>
             <FontAwesomeIcon icon={faSignOut} className="h-[10px] text-slate-500" />
           </div>
         </div>
