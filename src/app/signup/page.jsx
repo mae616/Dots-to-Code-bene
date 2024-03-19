@@ -3,22 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword, updateProfile, onAuthStateChanged } from "firebase/auth";
-import { firebaseApp } from "@/app/_config/firebase";
+import { createUserWithEmailAndPassword, updateProfile, onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/app/_config/firebase";
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
-import { Zen_Maru_Gothic } from  "next/font/google";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useUserInfo } from "@/app/_states/user";
-const auth = getAuth(firebaseApp);
-
-const ZenMaruGothic = Zen_Maru_Gothic({
-  weight: "400",
-  subsets: ["latin"],
-});
+import { ZenMaruGothic } from  "@/app/_config/themeFontConfig";
 
 export default function Signup() {
 

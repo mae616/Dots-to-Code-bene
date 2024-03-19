@@ -16,3 +16,8 @@ export const useUserInfo = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   return [userInfo, setUserInfo];
 }
+
+export const useIsAuth = () => {
+  const [userInfo] = useUserInfo();
+  return userInfo.uid ? true : false;
+}
