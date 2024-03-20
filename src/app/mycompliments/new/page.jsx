@@ -27,10 +27,11 @@ export default function MyComplimentPost() {
     body, setBody, 
     thoughts, setThoughts, 
     tags, setTags, 
+    suggestions,
     message, setMessage, 
     saveCompliment 
   } = usePostMyCompliment();
-  
+
   return (
     <>
       <Header />
@@ -74,9 +75,10 @@ export default function MyComplimentPost() {
                 <TextareaWithLength value={thoughts} onChange={(e)=>setThoughts(e.target.value)} maxLength={300} />
               </div>
             </div>
-            <Tags tags={tags} handleAddition={(tag) => setTags([...tags, tag]) }
+            <Tags tags={tags} handleAddition={(tag) => setTags([...tags, {registered: false, ...tag}]) }
               handleDelete={ (i) => setTags(tags.filter((tag, index) => index !== i))} 
-              suggestions={[{id: "がんばりを褒めたい", text: "がんばりを褒めたい"}, {id: "がんがん行こうぜ", text: "がんがん行こうぜ"}]}
+              handleInputBlur={(tag) => tag && setTags([...tags, {registered: false, id: tag, text: tag}]) }
+              suggestions={suggestions}
               max={5} />
             <div>
               <h5 className={mPlus1Bold.className + " text-xs"}>メッセージカード</h5>

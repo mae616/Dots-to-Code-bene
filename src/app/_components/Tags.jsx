@@ -1,13 +1,7 @@
 'use client';
-import { useState } from 'react';
 import { Chip } from 'primereact/chip';
 import { WithContext as ReactTags } from 'react-tag-input';
-import { M_PLUS_1 } from  "next/font/google";
-const mPlus1 = M_PLUS_1({
-  weight: "400",
-  subsets: ["latin"],
-
-});
+import { mPlus1 } from "@/app/_config/themeFontConfig";
 
 const KeyCodes = {
     comma: 188,
@@ -16,14 +10,16 @@ const KeyCodes = {
   
   const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
-export default function Tags({name, readonly = false, tags, suggestions, handleAddition, handleDelete, max=3}) {
+export default function Tags({readonly = false, tags, suggestions, handleAddition, handleDelete, handleInputBlur, max=3}) {
 
     if(readonly) {
         return (
-            <div className="shrink flex items-center gap-2 flex-wrap overflow-visible">
-              <Chip label="#がんばりをほめたい" className={mPlus1.className + " text-sm whitespace-nowrap bg-pink-200"} />
-              <Chip label="#Comedy" className={mPlus1.className + " text-sm whitespace-nowrap bg-pink-200"} />
-              <Chip label="#Mystery" className={mPlus1.className + " text-sm whitespace-nowrap bg-pink-200"} />
+          <div className="shrink flex items-center gap-2 flex-wrap overflow-visible">
+            {tags && tags.length > 0 && tags.map((tag, index) => {
+              return (
+                <Chip key={index} label={`${tag}`} className={mPlus1.className + " text-sm whitespace-nowrap bg-pink-200"} />
+              );
+            })}
           </div>
         );
     }
@@ -32,10 +28,19 @@ export default function Tags({name, readonly = false, tags, suggestions, handleA
         <div className="shrink flex items-center gap-2 flex-wrap overflow-visible">
           <ReactTags
             tags={tags}
+            maxLength={15}
             suggestions={suggestions}
             delimiters={delimiters}
             handleDelete={handleDelete}
             handleAddition={handleAddition}
+            handleDrag={()=>{}}
+            handleTagClick={()=>{}}
+            handleInputChange={(str, e)=>{
+              if(str.length > 0 && str[0] != '#'){
+                e.target.value = '#' + str;
+              }
+            }}
+            handleInputBlur={handleInputBlur}
             inputFieldPosition="bottom"
             autocomplete
             placeholder = "タグを追加"

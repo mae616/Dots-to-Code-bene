@@ -6,7 +6,7 @@ import { auth } from "@/app/_config/firebase";
 import { ZenMaruGothic } from "@/app/_config/themeFontConfig";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faUsers, faSignOut } from "@fortawesome/free-solid-svg-icons";
-import { useUserInfo, useIsAuth } from "@/app/_states/user";
+import { useUserInfo } from "@/app/_states/user";
 
 
 export default function Header() {

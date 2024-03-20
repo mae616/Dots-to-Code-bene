@@ -1,8 +1,8 @@
 'use client';
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { db } from "@/app/_config/firebase";
-import { addDoc, collection, Timestamp } from "firebase/firestore"; 
+import { addDoc, collection, getDocs, Timestamp } from "firebase/firestore"; 
 import { useUserInfo } from "@/app/_states/user";
 
 export function usePostMyCompliment() {
@@ -13,8 +13,26 @@ export function usePostMyCompliment() {
     const [body, setBody] = useState("");
     const [thoughts, setThoughts] = useState("");
     const [tags, setTags] = useState([]);
+    const [suggestions, setSuggestions] = useState([]);
     const [message, setMessage] = useState("");
     const router = useRouter();
+
+    useEffect(() => {
+      const fetchTags = async () => {
+        const querySnapshot = await getDocs(collection(db, "tags"));
+
+        const tagsTemp = [];
+        querySnapshot.forEach((doc) => {
+          tagsTemp.push({
+              id: doc.id,
+              registered: true,
+              text: doc.data().text
+          });
+        });
+        setSuggestions(tagsTemp);
+      };
+      fetchTags();
+    }, []);
 
     const saveCompliment = async () => {
         try {
@@ -33,7 +51,15 @@ export function usePostMyCompliment() {
             count_of_comments: 0,
             created_at: Timestamp.fromDate(new Date()), 
           });
-          router.push("/mycompliments")
+
+          const registeredTags = tags.filter((tag)=>tag.registered === false); 
+          registeredTags.length >0 && Promise.all(registeredTags.map(async tag => {
+            await addDoc(collection(db, "tags"), {
+              text: tag.text
+            });
+            return true;
+          })).then(() => router.push("/mycompliments"));
+          
         } catch (e) {
           console.error("Error adding document: ", e);
         }
@@ -52,6 +78,7 @@ export function usePostMyCompliment() {
         setThoughts,
         tags,
         setTags,
+        suggestions,
         message,
         setMessage,
         saveCompliment

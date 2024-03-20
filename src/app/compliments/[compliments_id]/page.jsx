@@ -3,7 +3,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BreadCrumb } from 'primereact/breadcrumb';
 import { Card } from 'primereact/card';
-import { Chip } from 'primereact/chip';
 import { Skeleton } from 'primereact/skeleton';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +13,7 @@ import CommentButton from "@/app/_components/CommentButton";
 import MessageCard from "@/app/_components/MessageCard";
 import VoicePlay from "@/app/_components/VoicePlay";
 import CommentList from "@/app/_components/CommentList";
+import Tags from "@/app/_components/Tags";
 import { mPlus1, mPlus1Bold } from "@/app/_config/themeFontConfig";
 import { dayjsConfig } from "@/app/_config/dayjsConfig";
 import { useFetchCompliment } from "@/app/_hook/useFetchCompliment";
@@ -68,15 +68,7 @@ export default function ComplimentCard({params}) {
                     {compliment.thoughts}
                   </div>
                 </div>
-                <div className="shrink flex items-center gap-2 flex-wrap overflow-visible">
-                  {
-                    compliment.tags.map((tag, index) => {
-                      return (
-                        <Chip key={index} label={`#${tag}`} className={mPlus1.className + " text-sm whitespace-nowrap bg-pink-200"} />
-                      );
-                    })
-                  }
-                </div>
+                <Tags readonly={true} tags={compliment.tags} />
                 <div className="mx-auto flex justify-between items-center w-44">
                   <LikeButton isLiked={compliment.isLiked} countOfLikes={compliment.count_of_likes} complimentId={compliment.id} />
                   <CommentButton countOfComment={compliment.count_of_comments} complimentRoute={pathname} />
