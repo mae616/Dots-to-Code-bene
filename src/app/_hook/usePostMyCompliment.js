@@ -19,17 +19,21 @@ export function usePostMyCompliment() {
 
     useEffect(() => {
       const fetchTags = async () => {
-        const querySnapshot = await getDocs(collection(db, "tags"));
+        try{
+          const querySnapshot = await getDocs(collection(db, "tags"));
 
-        const tagsTemp = [];
-        querySnapshot.forEach((doc) => {
-          tagsTemp.push({
-              id: doc.id,
-              registered: true,
-              text: doc.data().text
+          const tagsTemp = [];
+          querySnapshot.forEach((doc) => {
+            tagsTemp.push({
+                id: doc.id,
+                registered: true,
+                text: doc.data().text
+            });
           });
-        });
-        setSuggestions(tagsTemp);
+          setSuggestions(tagsTemp);
+        } catch (error) {
+          console.log("Error fetching tags: ", error);
+        }
       };
       fetchTags();
     }, []);
@@ -54,10 +58,9 @@ export function usePostMyCompliment() {
 
           const registeredTags = tags.filter((tag)=>tag.registered === false); 
           registeredTags.length >0 && Promise.all(registeredTags.map(async tag => {
-            await addDoc(collection(db, "tags"), {
+            return await addDoc(collection(db, "tags"), {
               text: tag.text
             });
-            return true;
           })).then(() => router.push("/mycompliments"));
 
           if(registeredTags.length === 0){
