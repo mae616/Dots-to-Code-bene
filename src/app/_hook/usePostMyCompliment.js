@@ -59,9 +59,13 @@ export function usePostMyCompliment() {
             });
             return true;
           })).then(() => router.push("/mycompliments"));
+
+          if(registeredTags.length === 0){
+            router.push("/mycompliments");
+          }
           
         } catch (e) {
-          console.error("Error adding document: ", e);
+          console.log("Error adding document: ", e);
         }
       }
 
