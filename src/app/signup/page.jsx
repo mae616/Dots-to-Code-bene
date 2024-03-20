@@ -1,5 +1,4 @@
 'use client';
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -19,9 +18,8 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [userInfo, setUserInfo] = useUserInfo();
+  const {setIsSignUpOrLogIn} = useUserInfo();
   const router = useRouter();
-
   const signup = async () => {
     let user;
     try {
@@ -35,9 +33,8 @@ export default function Signup() {
       return;
     }
 
-    setUserInfo(user);
-
-    router.push("./mycompliments");
+    setIsSignUpOrLogIn(true);
+    router.push('./mycompliments');
   }
   return (
       <div className="text-center pt-20 px-8">

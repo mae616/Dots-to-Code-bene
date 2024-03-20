@@ -1,8 +1,8 @@
 'use client';
-import { useUserInfo } from "@/app/_states/user";
+import { getUserInfo } from "@/app/_states/user";
 
 export function useComments(countOfComment) {
-    const [registeredUser] = useUserInfo();
+  const registeredUser = getUserInfo();
 
     const postComment = async (complimentId, body) => {
         try {

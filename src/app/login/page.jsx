@@ -17,14 +17,14 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userInfo, setUserInfo] = useUserInfo();
+  const {setIsSignUpOrLogIn} = useUserInfo();
   const router = useRouter();
 
   const login = async () => {
     try {
       const userCredential = await signInWithEmailAndPassword (auth, email, password);
       const user = userCredential.user;
-      setUserInfo(user);
+      setIsSignUpOrLogIn(true);
       router.push('./mycompliments');
     } catch (error) {
       console.log(error);

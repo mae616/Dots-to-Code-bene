@@ -1,6 +1,5 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { Button } from 'primereact/button';
 import { useIsAuth } from '@/app/_states/user';
 import TextareaWithLength from './TextareaWithLength';
@@ -8,8 +7,6 @@ import TextareaWithLength from './TextareaWithLength';
 export default function PostComment({complimentId, postComment}) {
     const [body, setBody] = useState('');
     const isAuth = useIsAuth();
-    const searchParams = useSearchParams();
-    const postCommentParams = searchParams.get('post_comment');
     const refElement = useRef(null);
 
     if (!isAuth) {
@@ -17,11 +14,11 @@ export default function PostComment({complimentId, postComment}) {
     }
 
     useEffect(() => {
-      if (postCommentParams === 'true') {
+      if(window.location.hash === "#post_comment") {
         refElement.current.scrollIntoView({ behavior: 'smooth' });
       }
     }
-    , [postCommentParams, refElement.current]);
+    , [refElement.current]);
 
     return (
       <div ref={refElement}>

@@ -1,3 +1,4 @@
+'use client';
 import { Avatar } from 'primereact/avatar';
 import { Tooltip } from 'primereact/tooltip';
 import { M_PLUS_1 } from  "next/font/google";
