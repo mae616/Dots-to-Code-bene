@@ -1,6 +1,6 @@
 import { Slider } from 'primereact/slider';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faCloudArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { BsFillCloudDownloadFill } from "react-icons/bs";
 
 export default function VoicePlay({}) {

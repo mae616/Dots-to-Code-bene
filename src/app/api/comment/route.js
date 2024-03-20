@@ -1,5 +1,5 @@
 import { adminDB } from '@/app/_config/server';
-import { addDoc, collection, getDoc, getDocs, doc, query, where, deleteDoc, Timestamp, FieldValue } from "firebase-admin/firestore"; 
+import { Timestamp, FieldValue } from "firebase-admin/firestore"; 
 
 export async function POST(request) {
     const body = await request.json();
