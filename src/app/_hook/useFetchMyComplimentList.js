@@ -1,6 +1,12 @@
-'use client';
+"use client";
 import { db } from "@/app/_config/firebase";
-import { collection, query, where, onSnapshot, orderBy } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+  orderBy,
+} from "firebase/firestore";
 import { getUserInfo, useIsAuth } from "@/app/_states/user";
 import { useEffect, useState, useRef } from "react";
 import { useFetchMyLikes } from "./useFetchMyLikes";
@@ -15,14 +21,16 @@ export function useFetchMyComplimentList() {
   const loading = useRef(true);
 
   const fetchMyCompliments = async () => {
-    try{
-      const q = query(collection(db, "compliments"), 
-          where("user_id", "==", registeredUser.uid), 
-          orderBy("created_at", "desc"));
+    try {
+      const q = query(
+        collection(db, "compliments"),
+        where("user_id", "==", registeredUser.uid),
+        orderBy("created_at", "desc")
+      );
 
       unsubscribe = onSnapshot(q, (querySnapshot) => {
         loading.current = true;
-        if(querySnapshot.empty || querySnapshot.docs.length === 0){
+        if (querySnapshot.empty || querySnapshot.docs.length === 0) {
           myComplimentsRef.current = [];
           loading.current = false;
           setMyCompliments([]);
@@ -30,20 +38,20 @@ export function useFetchMyComplimentList() {
         }
 
         const myComplimentIdsTemp = [];
-        querySnapshot.forEach(doc => {
+        querySnapshot.forEach((doc) => {
           myComplimentIdsTemp.push(doc.id);
         });
         myComplimentIdsRef.current = myComplimentIdsTemp;
 
-        if(myComplimentIdsRef.current.length > 0){
-          fetchMyLikes({complimentIds: myComplimentIdsRef.current }).then(
+        if (myComplimentIdsRef.current.length > 0) {
+          fetchMyLikes({ complimentIds: myComplimentIdsRef.current }).then(
             () => {
               const myComplimentTemp = [];
-              querySnapshot.forEach(doc => {
+              querySnapshot.forEach((doc) => {
                 myComplimentTemp.push({
                   id: doc.id,
                   isLiked: isLiked(doc.id),
-                  ...doc.data()
+                  ...doc.data(),
                 });
               });
               myComplimentsRef.current = myComplimentTemp;
@@ -51,13 +59,12 @@ export function useFetchMyComplimentList() {
               setMyCompliments(myComplimentTemp);
             }
           );
-        }else{
+        } else {
           myComplimentsRef.current = [];
           loading.current = false;
           setMyCompliments([]);
         }
       });
-
     } catch (error) {
       myComplimentsRef.current = [];
       loading.current = false;
@@ -71,14 +78,14 @@ export function useFetchMyComplimentList() {
     if (isAuth) {
       unsubscribe = null;
       fetchMyCompliments();
-    }else{
+    } else {
       loading.current = false;
       myComplimentsRef.current = [];
       setMyCompliments([]);
     }
 
-    return ()=> isAuth && unsubscribe && unsubscribe();
+    return () => isAuth && unsubscribe && unsubscribe();
   }, [isAuth]);
-  
-  return {myCompliments: myComplimentsRef.current, loading: loading.current};
+
+  return { myCompliments: myComplimentsRef.current, loading: loading.current };
 }
