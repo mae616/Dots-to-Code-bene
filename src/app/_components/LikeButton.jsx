@@ -1,6 +1,7 @@
 "use client";
 import { useLike } from "@/app/_hook/useLike";
 import LoadingAnimation from "./LoadingAnimation";
+import { useIsAuth } from "@/app/_states/user";
 
 export default function LikeButton({
   isLiked = false,
@@ -8,6 +9,7 @@ export default function LikeButton({
   complimentId,
 }) {
   const { addLike, removeLike, isLoading } = useLike();
+  const isAuth = useIsAuth();
 
   if (isLiked) {
     return (
@@ -16,7 +18,7 @@ export default function LikeButton({
           className="flex items-center hover:cursor-pointer px-2 z-10"
           onClick={(e) => {
             e.preventDefault();
-            removeLike(complimentId);
+            isAuth && removeLike(complimentId);
           }}
         >
           <i className="pi pi-heart-fill h-[10px] text-pink-400 mr-1" />
@@ -38,7 +40,7 @@ export default function LikeButton({
           <i className="pi pi-heart h-[10px]  text-pink-400 mr-1" />
           <div className="mt-1.5">{countOfLikes}</div>
         </div>
-        <LoadingAnimation loading={isLoading} />
+        {isAuth && <LoadingAnimation loading={isLoading} />}
       </>
     );
   }
