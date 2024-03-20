@@ -61,7 +61,7 @@ export function useFetchMyComplimentList() {
     } catch (error) {
       myComplimentsRef.current = [];
       loading.current = false;
-      console.error("Error fetching compliments: ", error);
+      console.log("Error fetching compliments: ", error);
     }
   };
 

@@ -40,7 +40,7 @@ export function useFetchComplimentList() {
         );
       });
     }catch (error) {
-      console.error("Error fetching compliments: ", error);
+      console.log("Error fetching compliments: ", error);
     }
   }
 
