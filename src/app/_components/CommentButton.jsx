@@ -7,7 +7,7 @@ export default function CommentButton({countOfComment = 0, complimentRoute}) {
 
     const handleClick = (e) => {
       e.preventDefault();
-      router.push(`${complimentRoute}?post_comment=true`);
+      router.push(`${complimentRoute}#post_comment`);
     };
 
     return (

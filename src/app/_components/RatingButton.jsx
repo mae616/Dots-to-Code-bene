@@ -1,3 +1,4 @@
+'use client';
 import { Rating } from 'primereact/rating';
 
 export default function RatingButton({readOnly=false, ratingValue = 0, onChange }) {

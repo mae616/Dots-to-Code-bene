@@ -1,8 +1,8 @@
 'use client';
-import { useUserInfo } from "@/app/_states/user";
+import { getUserInfo } from "@/app/_states/user";
 
 export function useLike() {
-    const [registeredUser] = useUserInfo();
+    const registeredUser = getUserInfo();
 
     const addLike = async (complimentId) => {
         try {

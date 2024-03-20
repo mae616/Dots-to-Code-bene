@@ -2,12 +2,12 @@
 import { db } from "@/app/_config/firebase";
 import { collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
-import { useUserInfo, useIsAuth } from "@/app/_states/user";
+import { getUserInfo, useIsAuth } from "@/app/_states/user";
 let unsubscribe;
 export function useFetchComments(complimentId, complimentAuthorId) {
   const commentsRef = useRef([]);
   const [comments, setComments] = useState([]);
-  const [registeredUser] = useUserInfo();
+  const registeredUser = getUserInfo();
   const isAuth = useIsAuth();
 
   const fetchMyComments = async () => {
