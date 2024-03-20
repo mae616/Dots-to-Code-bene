@@ -2,14 +2,22 @@ import React from 'react';
 
 function Cardtype ({name,image}){
   return (
-      <div className='cardtype-item'>
-        <div className='cardtype-name'>{name}</div>
-        <img 
-          className='cardtype-image' 
+      <div>
+       <img 
+          className="w-11/12 p-2 justify-center rounded" 
           src={image} 
         />
+    
       </div>
     );
  }
+
+ 
+
+
+
+
+
+
 
 export default Cardtype;
