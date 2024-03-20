@@ -1,12 +1,12 @@
 'use client';
 import { db } from "@/app/_config/firebase";
 import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
-import { useUserInfo, useIsAuth } from "@/app/_states/user";
+import { getUserInfo, useIsAuth } from "@/app/_states/user";
 import { useEffect, useState, useRef } from "react";
 import { useFetchMyLikes } from "./useFetchMyLikes";
 let unsubscribe;
 export function useFetchComplimentList() {
-  const [registeredUser] = useUserInfo();
+  const registeredUser = getUserInfo();
   const isAuth = useIsAuth();
   const complimentsRef = useRef([]);
   const complimentIdsRef = useRef([]);

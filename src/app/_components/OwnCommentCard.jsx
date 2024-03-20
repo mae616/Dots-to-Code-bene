@@ -1,3 +1,4 @@
+'use client';
 import AvatarIcon from './AvatarIcon';
 import { mPlus1 } from "@/app/_config/themeFontConfig";
 import { dayjsConfig } from "@/app/_config/dayjsConfig";
@@ -16,7 +17,7 @@ export default function OwnCommentCard({comment, removeComment}) {
               {comment.body}
             </div>
             <div className="text-right text-[0.8em] mt-5 text-slate-500">
-              {dayjsConfig(comment.created_at.toDate()).fromNow()}
+              <span suppressHydrationWarning={true} >{dayjsConfig(comment.created_at.toDate()).fromNow()}</span>
             </div>
           </div>
         </div>

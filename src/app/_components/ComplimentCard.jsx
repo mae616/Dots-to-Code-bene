@@ -51,7 +51,7 @@ export default function ComplimentCard({complimentInfo}) {
           </div>
           </div>
           <div className="text-right text-sm mt-5 text-slate-500">
-          {dayjsConfig(complimentInfo.created_at.toDate()).fromNow()}
+            <span suppressHydrationWarning={true} >{dayjsConfig(complimentInfo.created_at.toDate()).fromNow()}</span>
           </div>
           <div className="text-right text-sm mt-5 text-sky-500">
               詳細へ

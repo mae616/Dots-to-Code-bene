@@ -80,7 +80,7 @@ export default function ComplimentCard({params}) {
                 </div>
               </div>
               <div className="text-right text-sm mt-5 text-slate-500">
-                {dayjsConfig(compliment.created_at.toDate()).fromNow()}
+                <span suppressHydrationWarning={true} >{dayjsConfig(compliment.created_at.toDate()).fromNow()}</span>
               </div>
             </Card>
             <CommentList countOfComment={compliment.count_of_comments} complimentId={compliment.id} complimentAuthorId={compliment.user_id} />

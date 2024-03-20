@@ -1,16 +1,17 @@
 'use client';
 import { db } from "@/app/_config/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { useUserInfo, useIsAuth } from "@/app/_states/user";
-import { useEffect, useRef } from "react";
-let unsubscribe;
+import { getUserInfo, useIsAuth } from "@/app/_states/user";
+import { useRef } from "react";
+
 export function useFetchMyLikes() {
-  const [registeredUser] = useUserInfo();
+  const registeredUser = getUserInfo();
   const isAuth = useIsAuth();
   const myLikesRef = useRef([]);
 
   const fetchMyLikes = async ({complimentId, complimentIds}) => {
     if(!complimentId && ( !complimentIds || complimentIds.length === 0)){
+      myLikesRef.current = [];
       return;
     }
 

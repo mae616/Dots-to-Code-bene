@@ -1,3 +1,4 @@
+'use client';
 import { BsFillCloudDownloadFill } from "react-icons/bs";
 export default function MessageCard({}) {
     return (

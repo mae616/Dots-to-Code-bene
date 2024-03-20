@@ -3,10 +3,10 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { db } from "@/app/_config/firebase";
 import { addDoc, collection, getDocs, Timestamp } from "firebase/firestore"; 
-import { useUserInfo } from "@/app/_states/user";
+import { getUserInfo } from "@/app/_states/user";
 
 export function usePostMyCompliment() {
-    const [registeredUser] = useUserInfo();
+    const registeredUser = getUserInfo();
     const [toName, setToName] = useState("");
     const [toCategory, setToCategory] = useState("");
     const [complimentRating, setComplimentRating] = useState(3);
