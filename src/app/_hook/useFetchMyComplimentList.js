@@ -51,9 +51,11 @@ export function useFetchMyComplimentList() {
   };
 
   useEffect(() => {
-    fetchMyCompliments();
+    if (isAuth){
+      fetchMyCompliments();
+    }
     return ()=> unsubscribe && unsubscribe();
-  }, []);
+  }, [isAuth]);
   
   return {myCompliments: myComplimentsRef.current};
 }
