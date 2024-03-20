@@ -11,6 +11,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Header from "@/app/_components/Header";
 import RatingButton from "@/app/_components/RatingButton";
 import TextareaWithLength from "@/app/_components/TextareaWithLength";
+import LoadingAnimation from "@/app/_components/LoadingAnimation";
 import Tags from "@/app/_components/Tags";
 import MessageCard from "@/app/_components/MessageCard";
 import VoicePlay from "@/app/_components/VoicePlay";
@@ -30,7 +31,8 @@ export default function MyComplimentPost() {
     tags, setTags, 
     suggestions,
     message, setMessage, 
-    saveCompliment 
+    saveCompliment,
+    saveComplimentLoading
   } = usePostMyCompliment();
   const [isClient, setIsClient] = useState(false);
  
@@ -108,6 +110,7 @@ export default function MyComplimentPost() {
             <Link href="/mycompliments" className="text-sm hover:cursor-pointer text-red-400 mr-3">キャンセル</Link>
             <Button label="保存" icon="pi pi-save" size="small" loading={false} onClick={saveCompliment} />
           </div>
+          <LoadingAnimation loading={saveComplimentLoading} />
       </>}
     </>
   );

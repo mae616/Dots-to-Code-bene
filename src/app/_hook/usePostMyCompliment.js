@@ -16,6 +16,8 @@ export function usePostMyCompliment() {
     const [suggestions, setSuggestions] = useState([]);
     const [message, setMessage] = useState("");
     const router = useRouter();
+    const loadingRef = useRef(false);
+    const [isloading, setIsLoading] = useState(false);
 
     useEffect(() => {
       const fetchTags = async () => {
@@ -39,6 +41,8 @@ export function usePostMyCompliment() {
     }, []);
 
     const saveCompliment = async () => {
+        loadingRef.current = true;
+        setIsLoading(loadingRef.current);
         try {
           await addDoc(collection(db, "compliments"), 
           {
@@ -61,13 +65,21 @@ export function usePostMyCompliment() {
             return await addDoc(collection(db, "tags"), {
               text: tag.text
             });
-          })).then(() => router.push("/mycompliments"));
+          })).then(() => { 
+            loadingRef.current = false; 
+            setIsLoading(loadingRef.current);
+            router.push("/mycompliments");
+          });
 
           if(registeredTags.length === 0){
+            loadingRef.current = false; 
+            setIsLoading(loadingRef.current);
             router.push("/mycompliments");
           }
           
         } catch (e) {
+          loadingRef.current = false; 
+          setIsLoading(loadingRef.current);
           console.log("Error adding document: ", e);
         }
       }
@@ -88,6 +100,7 @@ export function usePostMyCompliment() {
         suggestions,
         message,
         setMessage,
-        saveCompliment
+        saveCompliment,
+        saveComplimentLoading: loadingRef.current
       };
 };

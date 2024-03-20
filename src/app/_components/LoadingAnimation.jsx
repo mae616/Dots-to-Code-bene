@@ -6,7 +6,7 @@ export default function LoadingAnimation({loading}) {
     return (
         <>
             {loading && 
-                <div className="absolute top-0 left-0 h-screen w-screen flex justify-center items-center z-20">
+                <div className="fixed top-0 left-0 h-screen w-screen flex justify-center items-center z-20">
                     <div className="bg-white h-32 w-36 rounded-lg flex flex-col justify-center items-center">
                     <Hearts
                         height="80"
