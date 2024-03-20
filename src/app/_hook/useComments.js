@@ -15,7 +15,7 @@ export function useComments(countOfComment) {
 
           await fetch("/api/comment", {method: "POST", body: JSON.stringify(data) , headers: { "Content-Type": "application/json" }});
         } catch (e) {
-          console.error("Error adding comments: ", e);
+          console.log("Error adding comments: ", e);
         }
       }
 
@@ -27,7 +27,7 @@ export function useComments(countOfComment) {
           };
           await fetch("/api/comment", {method: "DELETE", body: JSON.stringify(data), headers: { "Content-Type": "application/json" }});
         } catch (e) {
-          console.error("Error delete comments: ", e);
+          console.log("Error delete comments: ", e);
         }
       }
 

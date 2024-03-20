@@ -14,7 +14,7 @@ export default function RemoveMyComplimentButton({complimentId}) {
 
     if (removeError) {
         toast.current.show({severity:'error', summary:'エラー', detail:'削除に失敗しました', life: 3000});
-        console.error("Error removing document: ", removeError);
+        console.log("Error removing document: ", removeError);
         setRemoveError(null);
     }
 
