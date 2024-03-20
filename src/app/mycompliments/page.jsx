@@ -12,7 +12,8 @@ import { useRedirectNoAuth } from "@/app/_hook/useRedirectNoAuth";
 
 export default function MyCompliments() {
   useRedirectNoAuth();
-  const myCompliments = useFetchMyComplimentList();
+  const { myCompliments } = useFetchMyComplimentList();
+
   return (
     <>
       <Header />

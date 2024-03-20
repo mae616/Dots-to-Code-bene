@@ -1,3 +1,4 @@
+'use client';
 import { InputTextarea } from 'primereact/inputtextarea';
 
 export default function TextareaWithLength({value, onChange, maxLength=200}) {

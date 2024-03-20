@@ -1,14 +1,15 @@
 'use client';
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useUserInfo } from "@/app/_states/user";
+import { useIsAuth } from "@/app/_states/user";
 
 export function useRedirectNoAuth() {
-  const [registeredUser] = useUserInfo();
+  const isAuth = useIsAuth();
   const router = useRouter();
-  useEffect(() => {
-    if (!registeredUser.uid) {
-      router.push("/login");
+
+  useEffect(()=>{
+    if(!isAuth) {
+      router.push('/login');
     }
-  }, [registeredUser]);
-}
+  }, []);
+};

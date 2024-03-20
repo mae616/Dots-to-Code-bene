@@ -1,18 +1,16 @@
 'use client';
-import Link from "next/link";
+import { useState } from "react";
 import { BreadCrumb } from 'primereact/breadcrumb';
-import { Button } from 'primereact/button';
 import { Skeleton } from 'primereact/skeleton';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Header from "@/app/_components/Header";
 import ComplimentCard from "@/app/_components/ComplimentCard";
 import { useFetchComplimentList } from "@/app/_hook/useFetchComplimentList";
-import { useRedirectNoAuth } from "@/app/_hook/useRedirectNoAuth";
 
 export default function Compliments() {
-  useRedirectNoAuth();
-  const compliments = useFetchComplimentList();
+  const { compliments } = useFetchComplimentList();
+
   return (
     <>
       <Header />

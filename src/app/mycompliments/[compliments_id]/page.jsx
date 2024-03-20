@@ -19,13 +19,11 @@ import { mPlus1, mPlus1Bold } from "@/app/_config/themeFontConfig";
 import { dayjsConfig } from "@/app/_config/dayjsConfig";
 import { useFetchCompliment } from "@/app/_hook/useFetchCompliment";
 import { useRedirectNoAuth } from "@/app/_hook/useRedirectNoAuth";
-import { useFetchMyLikes } from "@/app/_hook/useFetchMyLikes";
 
 export default function MyComplimentCard({params}) {
   useRedirectNoAuth();
   const {compliments_id} = params;
-  const compliment = useFetchCompliment(compliments_id);
-  const { isLiked } = useFetchMyLikes(compliment.id);
+  const { compliment } = useFetchCompliment({complimentId: compliments_id});
   const pathname = usePathname();
 
   return (
@@ -83,7 +81,7 @@ export default function MyComplimentCard({params}) {
                   }
                 </div>
                 <div className="mx-auto flex justify-between items-center w-44">
-                  <LikeButton isLiked={isLiked(compliment.id)} countOfLikes={compliment.count_of_likes} complimentId={compliment.id} />
+                  <LikeButton isLiked={compliment.isLiked} countOfLikes={compliment.count_of_likes} complimentId={compliment.id} />
                   <CommentButton countOfComment={compliment.count_of_comments} complimentRoute={pathname} />
                 </div>
 

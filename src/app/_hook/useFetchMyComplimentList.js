@@ -1,48 +1,61 @@
 'use client';
 import { db } from "@/app/_config/firebase";
 import { collection, query, where, onSnapshot, orderBy } from "firebase/firestore";
-import { useUserInfo } from "@/app/_states/user";
-import { useEffect, useState } from "react";
+import { useUserInfo, useIsAuth } from "@/app/_states/user";
+import { useEffect, useState, useRef } from "react";
 import { useFetchMyLikes } from "./useFetchMyLikes";
-
+let unsubscribe;
 export function useFetchMyComplimentList() {
   const [registeredUser] = useUserInfo();
+  const isAuth = useIsAuth();
+  const myComplimentsRef = useRef([]);
+  const myComplimentIdsRef = useRef([]);
+  const { isLiked, fetchMyLikes } = useFetchMyLikes();
   const [myCompliments, setMyCompliments] = useState([]);
-  const { isLiked } = useFetchMyLikes();
+
+  const fetchMyCompliments = async () => {
+    if (!isAuth) {
+      return;
+    }
+
+    try{
+      const q = query(collection(db, "compliments"), 
+          where("user_id", "==", registeredUser.uid), 
+          orderBy("created_at", "desc"));
+
+      unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const myComplimentIdsTemp = [];
+        querySnapshot.forEach(doc => {
+          myComplimentIdsTemp.push(doc.id);
+        });
+        myComplimentIdsRef.current = myComplimentIdsTemp;
+        fetchMyLikes({complimentIds: myComplimentIdsTemp}).then(
+          () => {
+            const myComplimentTemp = [];
+            querySnapshot.forEach(doc => {
+              myComplimentTemp.push({
+                id: doc.id,
+                isLiked: isLiked(doc.id),
+                ...doc.data()
+              });
+            });
+            myComplimentsRef.current = myComplimentTemp;
+            setMyCompliments(myComplimentTemp);
+          }
+        );
+      });
+
+    } catch (error) {
+      console.error("Error fetching compliments: ", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchMyCompliments = async () => {
-      if (!registeredUser.uid) {
-        return;
-      }
-
-      const myComplimentTemp = [];
-
-      let q;
-      try{
-        q = query(collection(db, "compliments"), 
-            where("user_id", "==", registeredUser.uid), 
-            orderBy("created_at", "desc"));
-      } catch (e) {
-        // 応急処置
-        q = query(collection(db, "compliments"), 
-            where("user_id", "==", registeredUser.uid), 
-            orderBy("created_at", "desc"));
-      }
-
-      onSnapshot(q, (querySnapshot) => {
-        querySnapshot.forEach(doc => {
-          myComplimentTemp.push({
-            id: doc.id,
-            isLiked: isLiked(doc.id),
-            ...doc.data()
-          });
-          setMyCompliments(myComplimentTemp);
-        });
-      });
-    };
-    fetchMyCompliments();
-  }, [registeredUser.uid]);
+    if (isAuth){
+      fetchMyCompliments();
+    }
+    return ()=> unsubscribe && unsubscribe();
+  }, [isAuth]);
   
-  return myCompliments;
+  return {myCompliments: myComplimentsRef.current};
 }
