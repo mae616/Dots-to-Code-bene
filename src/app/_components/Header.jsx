@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
@@ -8,34 +8,52 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faUsers, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { useIsAuth } from "@/app/_states/user";
 
-
 export default function Header() {
   const isAuth = useIsAuth();
   const router = useRouter();
 
   return (
-      <div className="flex w-full items-center justify-between">
-        <h1 className={ZenMaruGothic.className + " text-2xl my-3 grow px-3"}><Link href="/mycompliments">ほめるん</Link></h1>
-        
-        {isAuth && <div className="flex grow-0 items-center text-sm">
+    <div className="flex w-full items-center justify-between">
+      <h1 className={ZenMaruGothic.className + " text-2xl my-3 grow px-3"}>
+        <Link href="/mycompliments">ほめるん</Link>
+      </h1>
+
+      {isAuth && (
+        <div className="flex grow-0 items-center text-sm">
           <Link href="/mycompliments">
-            <FontAwesomeIcon icon={faUser} className="h-[10px] text-slate-500 mr-1" />
+            <FontAwesomeIcon
+              icon={faUser}
+              className="h-[10px] text-slate-500 mr-1"
+            />
             自分の投稿
           </Link>
         </div>
-        }
-        <div className="flex grow-0 items-center text-sm px-3">
-          <Link href="/compliments">
-            <FontAwesomeIcon icon={faUsers} className="h-[10px] text-slate-500 mr-1" />
-            みんなの投稿
-          </Link>
-        </div>
-        {isAuth && <div className="flex grow-0 items-center text-sm pr-3 hover:cursor-pointer">
-          <div onClick={(e) => { e.preventDefault();signOut(auth); router.push('/') }}>
-            <FontAwesomeIcon icon={faSignOut} className="h-[10px] text-slate-500" />
+      )}
+      <div className="flex grow-0 items-center text-sm px-3">
+        <Link href="/compliments">
+          <FontAwesomeIcon
+            icon={faUsers}
+            className="h-[10px] text-slate-500 mr-1"
+          />
+          みんなの投稿
+        </Link>
+      </div>
+      {isAuth && (
+        <div className="flex grow-0 items-center text-sm pr-3 hover:cursor-pointer">
+          <div
+            onClick={(e) => {
+              e.preventDefault();
+              signOut(auth);
+              router.push("/");
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faSignOut}
+              className="h-[10px] text-slate-500"
+            />
           </div>
         </div>
-        }
-      </div>
+      )}
+    </div>
   );
 }
