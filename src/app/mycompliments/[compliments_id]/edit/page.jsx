@@ -99,6 +99,7 @@ export default function MyComplimentPost({ params }) {
                         onChange={(e) => setToCategory(e.target.value)}
                         options={[
                           "娘",
+                          "息子",
                           "妻",
                           "夫",
                           "母",
@@ -109,6 +110,11 @@ export default function MyComplimentPost({ params }) {
                           "弟",
                           "同僚",
                           "後輩",
+                          "先輩",
+                          "部下",
+                          "上司",
+                          "仲間",
+                          "団体",
                         ]}
                         className="text-xs h-[2.1rem] w-[8.5em]"
                         pt={{ input: "text-xs" }}
@@ -189,7 +195,7 @@ export default function MyComplimentPost({ params }) {
                     onClick={handleCreate}
                   />
                 </div>
-                <MessageCard />
+                <MessageCard messageCardURL={messageCardURL} />
                 <div>
                   <VoicePlay />
                 </div>

@@ -39,7 +39,7 @@ export const createMessageCard = async (messageBody, toName) => {
   const fontInfo = await fetch(endpoint, {
     cache: "no-cache",
   }).then((res) => res.json());
-  console.log(fontInfo);
+
   const fontResponse = await fetch(fontInfo.items[0].files["300"], {
     cache: "no-cache",
   });

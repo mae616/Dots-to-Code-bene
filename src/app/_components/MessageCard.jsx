@@ -7,7 +7,7 @@ export default function MessageCard({ readOnly = false, messageCardURL }) {
         <img src={messageCardURL} className="w-full object-contain" />
       ) : (
         <img
-          src="https://placehold.jp/1650x1275?text=message+card.png"
+          src="https://placehold.jp/825x637.5?text=message+card.png"
           className="w-full object-contain"
         />
       )}
