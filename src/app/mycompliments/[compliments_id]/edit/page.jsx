@@ -18,10 +18,12 @@ import VoicePlay from "@/app/_components/VoicePlay";
 import { mPlus1, mPlus1Bold } from "@/app/_config/themeFontConfig";
 import { useEditMyCompliment } from "@/app/_hook/useEditMyCompliment";
 import { useRedirectNoAuth } from "@/app/_hook/useRedirectNoAuth";
+import { createMessageCard } from "@/app/_utils/CreateMessageCard";
 
 export default function MyComplimentPost({ params }) {
   useRedirectNoAuth();
   const { compliments_id } = params;
+  const [messageCardURL, setMessageCardURL] = useState("");
 
   const {
     toName,
@@ -47,6 +49,12 @@ export default function MyComplimentPost({ params }) {
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  const handleCreate = async () => {
+    const messageBody = message;
+    const pngURI = await createMessageCard(messageBody, toName);
+    setMessageCardURL(pngURI);
+  };
 
   return (
     <>
@@ -91,6 +99,7 @@ export default function MyComplimentPost({ params }) {
                         onChange={(e) => setToCategory(e.target.value)}
                         options={[
                           "娘",
+                          "息子",
                           "妻",
                           "夫",
                           "母",
@@ -101,6 +110,11 @@ export default function MyComplimentPost({ params }) {
                           "弟",
                           "同僚",
                           "後輩",
+                          "先輩",
+                          "部下",
+                          "上司",
+                          "仲間",
+                          "団体",
                         ]}
                         className="text-xs h-[2.1rem] w-[8.5em]"
                         pt={{ input: "text-xs" }}
@@ -178,9 +192,10 @@ export default function MyComplimentPost({ params }) {
                     size="small"
                     className="text-sm p-2 bg-pink-600 w-full border-0"
                     loading={false}
+                    onClick={handleCreate}
                   />
                 </div>
-                <MessageCard />
+                <MessageCard messageCardURL={messageCardURL} />
                 <div>
                   <VoicePlay />
                 </div>
