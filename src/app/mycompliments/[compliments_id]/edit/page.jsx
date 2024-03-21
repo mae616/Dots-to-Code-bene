@@ -18,10 +18,12 @@ import VoicePlay from "@/app/_components/VoicePlay";
 import { mPlus1, mPlus1Bold } from "@/app/_config/themeFontConfig";
 import { useEditMyCompliment } from "@/app/_hook/useEditMyCompliment";
 import { useRedirectNoAuth } from "@/app/_hook/useRedirectNoAuth";
+import { createMessageCard } from "@/app/_utils/CreateMessageCard";
 
 export default function MyComplimentPost({ params }) {
   useRedirectNoAuth();
   const { compliments_id } = params;
+  const [messageCardURL, setMessageCardURL] = useState("");
 
   const {
     toName,
@@ -47,6 +49,12 @@ export default function MyComplimentPost({ params }) {
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  const handleCreate = async () => {
+    const messageBody = message;
+    const pngURI = await createMessageCard(messageBody, toName);
+    setMessageCardURL(pngURI);
+  };
 
   return (
     <>
@@ -178,6 +186,7 @@ export default function MyComplimentPost({ params }) {
                     size="small"
                     className="text-sm p-2 bg-pink-600 w-full border-0"
                     loading={false}
+                    onClick={handleCreate}
                   />
                 </div>
                 <MessageCard />
