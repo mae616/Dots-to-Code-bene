@@ -34,7 +34,7 @@ export default function VoicePlay({
             value={selectVoice}
             onChange={(e) => setSelectVoice(e.target.value)}
             options={voices}
-            className="text-xs h-[2.1rem]"
+            className="text-xs h-[2.1rem] max-w-full"
             pt={{ input: "text-sm" }}
           />
           <div onClick={handlePlayVoice}>
