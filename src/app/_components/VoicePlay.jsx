@@ -29,18 +29,18 @@ export default function VoicePlay({
   return (
     <>
       {voices && voices.length > 0 && (
-        <div className="flex items-center justify-start gap-7">
+        <div className="flex items-center justify-start gap-7 flex-wrap overflow-visible">
           <Dropdown
             value={selectVoice}
             onChange={(e) => setSelectVoice(e.target.value)}
             options={voices}
-            className="text-xs h-[2.1rem]"
+            className="text-xs h-[2.1rem] max-w-full"
             pt={{ input: "text-sm" }}
           />
           <div onClick={handlePlayVoice}>
             <FontAwesomeIcon
               icon={faPlay}
-              className="h-[1.5em] w-[1.5em] text-slate-500"
+              className="h-[1.5em] w-[1.5em] text-slate-500 hover:cursor-pointer"
             />
           </div>
         </div>

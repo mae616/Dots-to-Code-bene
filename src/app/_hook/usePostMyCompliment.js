@@ -15,6 +15,7 @@ export function usePostMyCompliment() {
   const [tags, setTags] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const [message, setMessage] = useState("");
+  const [messageCardType, setMessageCardType] = useState("flower");
   const router = useRouter();
   const loadingRef = useRef(false);
   const [isloading, setIsLoading] = useState(false);
@@ -54,6 +55,7 @@ export function usePostMyCompliment() {
         thoughts: thoughts,
         tags: [...tags.map((tag) => tag.text)],
         message: message,
+        message_card_type: messageCardType,
         count_of_likes: 0,
         count_of_comments: 0,
         created_at: Timestamp.fromDate(new Date()),
@@ -101,6 +103,8 @@ export function usePostMyCompliment() {
     suggestions,
     message,
     setMessage,
+    messageCardType,
+    setMessageCardType,
     saveCompliment,
     saveComplimentLoading: loadingRef.current,
   };
