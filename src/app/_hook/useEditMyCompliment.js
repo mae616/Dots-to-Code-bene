@@ -27,6 +27,7 @@ export function useEditMyCompliment(complimentId) {
   const [message, setMessage] = useState("");
   const [countOfLikes, setCountOfLikes] = useState(0);
   const [countOfComments, setCountOfComments] = useState(0);
+  const [messageCardType, setMessageCardType] = useState("flower");
   const router = useRouter();
   const loadingRef = useRef(false);
   const [isloading, setIsLoading] = useState(false);
@@ -62,6 +63,8 @@ export function useEditMyCompliment(complimentId) {
           setMessage(complimentRef.current.message);
           setCountOfLikes(complimentRef.current.count_of_likes);
           setCountOfComments(complimentRef.current.count_of_comments);
+          complimentRef.current.message_card_type &&
+            setMessageCardType(complimentRef.current.message_card_type);
         });
       } else {
         complimentRef.current = {};
@@ -106,6 +109,7 @@ export function useEditMyCompliment(complimentId) {
         thoughts: thoughts,
         tags: [...tags.map((tag) => tag.text)],
         message: message,
+        message_card_type: messageCardType,
         count_of_likes: countOfLikes,
         count_of_comments: countOfComments,
         created_at: Timestamp.fromDate(new Date()),
@@ -153,6 +157,8 @@ export function useEditMyCompliment(complimentId) {
     suggestions,
     message,
     setMessage,
+    messageCardType,
+    setMessageCardType,
     saveCompliment,
     saveComplimentLoading: loadingRef.current,
   };

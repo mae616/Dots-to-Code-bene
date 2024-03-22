@@ -39,7 +39,11 @@ export default function MyComplimentCard({ params }) {
   useEffect(() => {
     const create = async () => {
       const messageBody = compliment.message;
-      const pngURI = await createMessageCard(messageBody, compliment.to_name);
+      const pngURI = await createMessageCard(
+        messageBody,
+        compliment.to_name,
+        compliment.message_card_type
+      );
       setMessageCardURL(pngURI);
     };
     create();

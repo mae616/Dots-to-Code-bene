@@ -34,7 +34,11 @@ export default function ComplimentCard({ params }) {
   useEffect(() => {
     const create = async () => {
       const messageBody = compliment.message;
-      const pngURI = await createMessageCard(messageBody, "");
+      const pngURI = await createMessageCard(
+        messageBody,
+        "",
+        compliment.message_card_type
+      );
       setMessageCardURL(pngURI);
     };
     create();
@@ -119,7 +123,10 @@ export default function ComplimentCard({ params }) {
                       />
                     </div>
 
-                    <MessageCard messageCardURL={messageCardURL} />
+                    <MessageCard
+                      readOnly={true}
+                      messageCardURL={messageCardURL}
+                    />
                     <div>
                       <VoicePlay messageBody={compliment.message} toName="" />
                     </div>
