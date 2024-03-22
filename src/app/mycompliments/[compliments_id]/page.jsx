@@ -46,7 +46,9 @@ export default function MyComplimentCard({ params }) {
       );
       setMessageCardURL(pngURI);
     };
-    create();
+    if (compliment.message) {
+      create();
+    }
   }, [compliment]);
 
   return (
