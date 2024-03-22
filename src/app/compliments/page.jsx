@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Skeleton } from "primereact/skeleton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import Header from "@/app/_components/Header";
 import ComplimentCard from "@/app/_components/ComplimentCard";
 import { useFetchComplimentList } from "@/app/_hook/useFetchComplimentList";
@@ -26,7 +26,7 @@ export default function Compliments() {
             home={{
               icon: (
                 <FontAwesomeIcon
-                  icon={faUser}
+                  icon={faUsers}
                   className="h-[10px] text-slate-500 mr-1"
                 />
               ),
