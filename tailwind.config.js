@@ -17,6 +17,7 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "image-sm": "url('/images/background-blue.png')",
+        "image-top": "url('/images/background_cat.png')",
       },
     },
   },
