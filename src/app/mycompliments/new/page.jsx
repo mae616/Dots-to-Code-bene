@@ -26,7 +26,6 @@ export default function MyComplimentPost() {
   useRedirectNoAuth();
   const [messageCardURL, setMessageCardURL] = useState("");
   const [visible, setVisible] = useState(false);
-  const [messageCardType, setMessageCardType] = useState("flower");
   const [doCreate, setDoCreate] = useState(false);
 
   const {
@@ -45,6 +44,8 @@ export default function MyComplimentPost() {
     suggestions,
     message,
     setMessage,
+    messageCardType,
+    setMessageCardType,
     saveCompliment,
     saveComplimentLoading,
   } = usePostMyCompliment();
@@ -122,6 +123,8 @@ export default function MyComplimentPost() {
                           "兄",
                           "妹",
                           "弟",
+                          "友人",
+                          "恋人",
                           "同僚",
                           "後輩",
                           "先輩",

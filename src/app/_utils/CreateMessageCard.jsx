@@ -124,9 +124,8 @@ export const createMessageCard = async (
               justifyContent: "center",
             }}
           >
-            {messageBody.split(/\r?\n/).map((line) => (
-              <div>{line}</div>
-            ))}
+            {messageBody &&
+              messageBody.split(/\r?\n/).map((line) => <div>{line}</div>)}
           </div>
         </div>
       ) : (
@@ -164,9 +163,8 @@ export const createMessageCard = async (
               alignItems: "center",
             }}
           >
-            {messageBody.split(/\r?\n/).map((line) => (
-              <div>{line}</div>
-            ))}
+            {messageBody &&
+              messageBody.split(/\r?\n/).map((line) => <div>{line}</div>)}
           </div>
         </div>
       )}
