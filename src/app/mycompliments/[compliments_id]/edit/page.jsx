@@ -67,7 +67,9 @@ export default function MyComplimentPost({ params }) {
   };
 
   useEffect(() => {
-    handleCreate();
+    if (message) {
+      handleCreate();
+    }
   }, [message, toName, messageCardType]);
 
   return (
