@@ -4,7 +4,6 @@ import { Slider } from "primereact/slider";
 import { Dropdown } from "primereact/dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import { BsFillCloudDownloadFill } from "react-icons/bs";
 import { playVoice, appendVoices } from "@/app/_utils/Voice";
 
 export default function VoicePlay({
@@ -41,15 +40,9 @@ export default function VoicePlay({
           <div onClick={handlePlayVoice}>
             <FontAwesomeIcon
               icon={faPlay}
-              className="h-[10px] text-slate-500"
+              className="h-[1.5em] w-[1.5em] text-slate-500"
             />
           </div>
-          {!readOnly && (
-            <>
-              {/* <i className="pi pi-spin pi-spinner text-slate-500" /> */}
-              <BsFillCloudDownloadFill className="text-lg text-sky-600" />
-            </>
-          )}
         </div>
       )}
     </>
