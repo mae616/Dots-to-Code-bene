@@ -18,16 +18,27 @@ import Tags from "@/app/_components/Tags";
 import { mPlus1, mPlus1Bold } from "@/app/_config/themeFontConfig";
 import { dayjsConfig } from "@/app/_config/dayjsConfig";
 import { useFetchCompliment } from "@/app/_hook/useFetchCompliment";
+import { createMessageCard } from "@/app/_utils/CreateMessageCard";
 
 export default function ComplimentCard({ params }) {
   const { compliments_id } = params;
   const { compliment } = useFetchCompliment({ complimentId: compliments_id });
   const pathname = usePathname();
   const [isClient, setIsClient] = useState(false);
+  const [messageCardURL, setMessageCardURL] = useState("");
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    const create = async () => {
+      const messageBody = compliment.message;
+      const pngURI = await createMessageCard(messageBody, "");
+      setMessageCardURL(pngURI);
+    };
+    create();
+  }, [compliment]);
 
   return (
     <>
@@ -108,9 +119,9 @@ export default function ComplimentCard({ params }) {
                       />
                     </div>
 
-                    <MessageCard readOnly={true} />
+                    <MessageCard messageCardURL={messageCardURL} />
                     <div>
-                      <VoicePlay readOnly={true} />
+                      <VoicePlay messageBody={compliment.message} toName="" />
                     </div>
                   </div>
                   <div className="text-right text-sm mt-5 text-slate-500">

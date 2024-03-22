@@ -56,6 +56,15 @@ export default function MyComplimentPost({ params }) {
     setMessageCardURL(pngURI);
   };
 
+  useEffect(() => {
+    const create = async () => {
+      const messageBody = message;
+      const pngURI = await createMessageCard(messageBody, toName);
+      setMessageCardURL(pngURI);
+    };
+    create();
+  }, [message]);
+
   return (
     <>
       {isClient && (
@@ -197,7 +206,7 @@ export default function MyComplimentPost({ params }) {
                 </div>
                 <MessageCard messageCardURL={messageCardURL} />
                 <div>
-                  <VoicePlay />
+                  <VoicePlay messageBody={message} toName={toName} />
                 </div>
               </div>
             </Card>

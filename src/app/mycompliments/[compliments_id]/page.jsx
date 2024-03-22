@@ -21,6 +21,7 @@ import { dayjsConfig } from "@/app/_config/dayjsConfig";
 import { useFetchCompliment } from "@/app/_hook/useFetchCompliment";
 import { useRedirectNoAuth } from "@/app/_hook/useRedirectNoAuth";
 import { Button } from "primereact/button";
+import { createMessageCard } from "@/app/_utils/CreateMessageCard";
 
 export default function MyComplimentCard({ params }) {
   useRedirectNoAuth();
@@ -29,10 +30,20 @@ export default function MyComplimentCard({ params }) {
   const pathname = usePathname();
   const [isClient, setIsClient] = useState(false);
   const router = useRouter();
+  const [messageCardURL, setMessageCardURL] = useState("");
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    const create = async () => {
+      const messageBody = compliment.message;
+      const pngURI = await createMessageCard(messageBody, compliment.to_name);
+      setMessageCardURL(pngURI);
+    };
+    create();
+  }, [compliment]);
 
   return (
     <>
@@ -121,9 +132,12 @@ export default function MyComplimentCard({ params }) {
                       />
                     </div>
 
-                    <MessageCard />
+                    <MessageCard messageCardURL={messageCardURL} />
                     <div>
-                      <VoicePlay />
+                      <VoicePlay
+                        messageBody={compliment.message}
+                        toName={compliment.to_name}
+                      />
                     </div>
                   </div>
                   <div className="text-right text-sm mt-5 text-slate-500">
