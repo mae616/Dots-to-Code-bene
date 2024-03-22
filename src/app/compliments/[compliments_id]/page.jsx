@@ -6,7 +6,7 @@ import { BreadCrumb } from "primereact/breadcrumb";
 import { Card } from "primereact/card";
 import { Skeleton } from "primereact/skeleton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import Header from "@/app/_components/Header";
 import RatingButton from "@/app/_components/RatingButton";
 import LikeButton from "@/app/_components/LikeButton";
@@ -56,7 +56,7 @@ export default function ComplimentCard({ params }) {
             home={{
               icon: (
                 <FontAwesomeIcon
-                  icon={faUser}
+                  icon={faUsers}
                   className="h-[10px] text-slate-500 mr-1"
                 />
               ),
@@ -73,7 +73,7 @@ export default function ComplimentCard({ params }) {
                     <div className="flex items-end gap-2">
                       <div className="grow">
                         <h5 className={mPlus1Bold.className + " text-xs"}>
-                          ほめたい人の名前
+                          ほめたい人
                         </h5>
                         <div className={mPlus1.className}>
                           {compliment.to_category} さん

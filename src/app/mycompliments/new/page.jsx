@@ -91,6 +91,16 @@ export default function MyComplimentPost() {
             className="flex text-sm bg-transparent border-none"
           />
           <div className="text-center mx-5">
+            <div className="text-left text-xs ">
+              <Link
+                href="/guide"
+                target="_blank"
+                className=" flex justify-start items-center gap-1  text-slate-500 hover:text-slate-800"
+              >
+                <i className="pi pi-question-circle" />
+                <div className="pt-0.5">褒め方ヒント</div>
+              </Link>
+            </div>
             <Card className=" bg-white bg-opacity-40 my-4 shadow-none">
               <div className="text-left flex flex-col gap-4">
                 <div className="flex items-end gap-2">
