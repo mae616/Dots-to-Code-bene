@@ -4,6 +4,21 @@ import { Canvg } from "canvg";
 const IMAGE_WIDTH = 825;
 const IMAGE_HEIGHT = 637.5;
 
+const MessageCardTypeInfo = {
+  flower: {
+    background: "/Cardimage/Flowercard2.png",
+  },
+  penguin: {
+    background: "/Cardimage/Penguincard.png",
+  },
+  risu: {
+    background: "/Cardimage/Risucard.png",
+  },
+  simple: {
+    background: "/Cardimage/Simplecard2.png",
+  },
+};
+
 const covertPngUrlToBase64 = async (url) => {
   const response = await fetch(url);
   const blob = await response.blob();
@@ -28,7 +43,11 @@ const convertSvgToPng = async (svg) => {
   return imgURI;
 };
 
-export const createMessageCard = async (messageBody, toName) => {
+export const createMessageCard = async (
+  messageBody,
+  toName,
+  messageCardType = "flower"
+) => {
   const endpoint = new URL("https://www.googleapis.com/webfonts/v1/webfonts");
   endpoint.searchParams.set("family", "M PLUS 2");
   endpoint.searchParams.set(
@@ -45,7 +64,7 @@ export const createMessageCard = async (messageBody, toName) => {
   });
   const fontBuffer = await fontResponse.arrayBuffer();
 
-  const background = "/Cardimage/Flowercard2.png";
+  const background = MessageCardTypeInfo[messageCardType].background;
   const backgroundBase64 = await covertPngUrlToBase64(background);
 
   const svg = await satori(
@@ -69,32 +88,92 @@ export const createMessageCard = async (messageBody, toName) => {
         height={IMAGE_HEIGHT}
         style={{ objectFit: "contain", opacity: 1 }}
       />
-      <div
-        style={{
-          color: "black",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: IMAGE_WIDTH,
-          height: IMAGE_HEIGHT,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 40,
-        }}
-      >
-        <div>{toName}</div>
-
-        <div style={{ whiteSpace: "pre-wrap", textAlign: "center" }}>
-          {messageBody}
-        </div>
-
+      {messageCardType === "penguin" ? (
         <div
-          style={{ position: "absolute", bottom: 20, right: 20, fontSize: 25 }}
+          style={{
+            color: "black",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: IMAGE_WIDTH,
+            height: IMAGE_HEIGHT,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 40,
+          }}
         >
-          {new Date().toLocaleDateString()}
+          {toName && (
+            <div style={{ position: "absolute", top: "312px", left: "258px" }}>
+              {toName}
+            </div>
+          )}
+
+          <div
+            style={{
+              position: "absolute",
+              top: "370px",
+              width: IMAGE_WIDTH - 200 + "px",
+              height: "200px",
+              textAlign: "center",
+              wordBreak: "break-all",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {messageBody.split(/\r?\n/).map((line) => (
+              <div>{line}</div>
+            ))}
+          </div>
         </div>
+      ) : (
+        <div
+          style={{
+            color: "black",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: IMAGE_WIDTH,
+            height: IMAGE_HEIGHT,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 40,
+          }}
+        >
+          {toName &&
+            (messageCardType === "flower" || messageCardType === "risu") && (
+              <div>{toName}</div>
+            )}
+          {toName && messageCardType === "simple" && (
+            <div style={{ position: "absolute", top: "32px", left: "170px" }}>
+              {toName}
+            </div>
+          )}
+
+          <div
+            style={{
+              textAlign: "center",
+              wordBreak: "break-all",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            {messageBody.split(/\r?\n/).map((line) => (
+              <div>{line}</div>
+            ))}
+          </div>
+        </div>
+      )}
+      <div
+        style={{ position: "absolute", bottom: 20, right: 20, fontSize: 25 }}
+      >
+        {new Date().toLocaleDateString()}
       </div>
     </div>,
     // 第一引数に SVG に変換したい要素を渡す

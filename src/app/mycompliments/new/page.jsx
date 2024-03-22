@@ -19,10 +19,15 @@ import { mPlus1, mPlus1Bold } from "@/app/_config/themeFontConfig";
 import { usePostMyCompliment } from "@/app/_hook/usePostMyCompliment";
 import { useRedirectNoAuth } from "@/app/_hook/useRedirectNoAuth";
 import { createMessageCard } from "@/app/_utils/CreateMessageCard";
+import Makecard from "@/app/_components/makecard/Makecard";
+import { Dialog } from "primereact/dialog";
 
 export default function MyComplimentPost() {
   useRedirectNoAuth();
   const [messageCardURL, setMessageCardURL] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [messageCardType, setMessageCardType] = useState("flower");
+  const [doCreate, setDoCreate] = useState(false);
 
   const {
     toName,
@@ -51,9 +56,19 @@ export default function MyComplimentPost() {
 
   const handleCreate = async () => {
     const messageBody = message;
-    const pngURI = await createMessageCard(messageBody, toName);
+    const pngURI = await createMessageCard(
+      messageBody,
+      toName,
+      messageCardType
+    );
     setMessageCardURL(pngURI);
   };
+
+  useEffect(() => {
+    if (doCreate) {
+      handleCreate();
+    }
+  }, [doCreate, message, toName, messageCardType]);
 
   return (
     <>
@@ -185,14 +200,27 @@ export default function MyComplimentPost() {
                   </div>
                 </div>
                 <div className="mx-auto w-1/2">
-                  <Button
-                    label="生成"
-                    icon="pi pi-arrow-circle-down"
-                    size="small"
-                    className="text-sm p-2 bg-pink-600 w-full border-0"
-                    loading={false}
-                    onClick={handleCreate}
-                  />
+                  <>
+                    <Button
+                      label="カード選択"
+                      icon="pi pi-arrow-circle-down"
+                      size="small"
+                      className="text-sm p-2 bg-pink-600 w-full border-0"
+                      onClick={() => setVisible(true)}
+                    />
+                    <Dialog
+                      header=""
+                      visible={visible}
+                      style={{ width: "50%" }}
+                      onHide={() => setVisible(false)}
+                    >
+                      <Makecard
+                        setMessageCardType={setMessageCardType}
+                        setVisible={setVisible}
+                        setDoCreate={setDoCreate}
+                      />
+                    </Dialog>
+                  </>
                 </div>
                 <MessageCard messageCardURL={messageCardURL} />
                 <div>

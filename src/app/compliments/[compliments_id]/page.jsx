@@ -119,7 +119,10 @@ export default function ComplimentCard({ params }) {
                       />
                     </div>
 
-                    <MessageCard messageCardURL={messageCardURL} />
+                    <MessageCard
+                      readOnly={true}
+                      messageCardURL={messageCardURL}
+                    />
                     <div>
                       <VoicePlay messageBody={compliment.message} toName="" />
                     </div>

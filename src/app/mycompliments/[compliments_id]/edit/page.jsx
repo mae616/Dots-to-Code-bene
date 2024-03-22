@@ -63,7 +63,7 @@ export default function MyComplimentPost({ params }) {
       setMessageCardURL(pngURI);
     };
     create();
-  }, [message]);
+  }, []);
 
   return (
     <>
