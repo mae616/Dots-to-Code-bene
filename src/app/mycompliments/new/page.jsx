@@ -196,7 +196,7 @@ export default function MyComplimentPost() {
                 </div>
                 <MessageCard messageCardURL={messageCardURL} />
                 <div>
-                  <VoicePlay />
+                  <VoicePlay messageBody={message} toName={toName} />
                 </div>
               </div>
             </Card>
